@@ -1,11 +1,16 @@
-# Use an official JDK runtime as a parent image
-FROM eclipse-temurin:17-jdk-alpine
-
-# Set the working directory
+# Stage 1: Build the application
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
+# Copy the pom.xml and source code
+COPY pom.xml .
+COPY src ./src
+# Build the application and skip tests for speed
+RUN mvn clean package -DskipTests
 
-# Copy the executable jar file from the target folder
-COPY target/*.jar app.jar
-
-# Run the jar file
+# Stage 2: Run the application
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+# Copy the jar from the build stage
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
