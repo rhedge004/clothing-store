@@ -37,7 +37,7 @@ public class OrderService {
             OrderItem item = new OrderItem();
             item.setProduct(cartItem.getProduct());
             item.setQuantity(cartItem.getQuantity());
-            item.setPriceAtPurchase(cartItem.getProduct().getPrice());
+            item.setPriceAtPurchase(cartItem.getProduct().getPrice().doubleValue());
             return item;
         }).collect(Collectors.toList());
 

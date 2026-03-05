@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @SpringBootApplication(scanBasePackages = "com.example")
@@ -23,9 +24,29 @@ public class ClothingApplication {
     @Bean
     CommandLineRunner runner(ProductRepository repository) {
         return args -> {
-            Product p1 = new Product(null, "Vintage Denim Jacket", "Classic blue denim", 89.99, "Outerwear", 15, "L");
-            Product p2 = new Product(null, "Cotton T-Shirt", "100% organic cotton", 24.50, "Basics", 50, "M");
-            Product p3 = new Product(null, "Slim Fit Chinos", "Stretch fabric trousers", 55.00, "Pants", 20, "M");
+            Product p1 = new Product();
+            p1.setName("Vintage Denim Jacket");
+            p1.setDescription("Classic blue denim");
+            p1.setPrice(BigDecimal.valueOf(89.99));
+            p1.setCategory("Outerwear");
+            p1.setStockQuantity(15);
+            p1.setSize("M");
+
+            Product p2 = new Product();
+            p2.setName("Cotton T-Shirt");
+            p2.setDescription("100% organic cotton");
+            p2.setPrice(BigDecimal.valueOf(24.50));
+            p2.setCategory("Basics");
+            p2.setStockQuantity(50);
+            p2.setSize("L");
+
+            Product p3 = new Product();
+            p3.setName("Slim Fit Chinos");
+            p3.setDescription("Stretch fabric trousers");
+            p3.setPrice(BigDecimal.valueOf(55.00));
+            p3.setCategory("Pants");
+            p3.setStockQuantity(20);
+            p3.setSize("32");
 
             repository.saveAll(List.of(p1, p2, p3));
             System.out.println("Database populated with sample clothing items.");
