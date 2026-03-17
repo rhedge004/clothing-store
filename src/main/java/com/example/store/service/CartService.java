@@ -40,4 +40,11 @@ public class CartService {
     public void clearCart() {
         cartRepository.deleteAll();
     }
+
+    public void removeFromCart(Long cartItemId) {
+    if (!cartRepository.existsById(cartItemId)) {
+        throw new RuntimeException("Cart item not found with id: " + cartItemId);
+    }
+    cartRepository.deleteById(cartItemId);
+}
 }

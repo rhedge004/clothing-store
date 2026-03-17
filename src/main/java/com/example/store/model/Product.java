@@ -22,7 +22,9 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
-    private String category;
+    private String category; // e.g., Shirt, Pants, Shoes
+    private String type; // e.g., Men, Women, Others
     private Integer stockQuantity;
     private String size; // e.g., S, M, L, XL
+    private String imageUrl;
 }

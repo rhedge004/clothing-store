@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
-@CrossOrigin(origins = "*") 
+@RequestMapping("/products")
+@CrossOrigin(origins = "*")
 public class ProductController {
 
     private final ProductRepository repository;
@@ -25,5 +25,23 @@ public class ProductController {
     @PostMapping
     public Product addProduct(@RequestBody Product product) {
         return repository.save(product);
+    }
+
+    @GetMapping("/filter")
+    public List<Product> filterProducts(@RequestParam(required = false) String type,
+            @RequestParam(required = false) String category) {
+        if (type != null && category != null) {
+            return repository.findByTypeIgnoreCaseAndCategoryIgnoreCase(type, category);
+        } else if (type != null) {
+            return repository.findByTypeIgnoreCase(type);
+        } else if (category != null) {
+            return repository.findByCategoryIgnoreCase(category);
+        }
+        return repository.findAll();
+    }
+
+    @GetMapping("/categories")
+    public List<String> getCategories() {
+        return repository.findDistinctCategories();
     }
 }

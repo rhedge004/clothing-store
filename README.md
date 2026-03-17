@@ -4,14 +4,15 @@ This project implements a backend for a clothing store using Spring Boot. It man
 
 ## API Endpoints
 
-### Products (`/api/products`)
+### Products (`/products`)
 
 | Method | Endpoint | Description | Request Body | Response |
 |---|---|---|---|---|
 | `GET` | `/` | Retrieve all available products | None | `List<Product>` |
+| `GET` | `/filter` | Filter products by `type` and/or `category` (case-insensitive). | Query Params: `type`, `category` | `List<Product>` |
 | `POST` | `/` | Add a new product to the inventory | `Product` | `Product` |
 
-### Shopping Cart (`/api/cart`)
+### Shopping Cart (`/cart`)
 
 | Method | Endpoint | Description | Parameters | Response |
 |---|---|---|---|---|
@@ -19,7 +20,7 @@ This project implements a backend for a clothing store using Spring Boot. It man
 | `POST` | `/add/{productId}` | Add an item to the cart | `quantity` (Query Param) | `CartItem` |
 | `DELETE` | `/clear` | Remove all items from the cart | None | `void` |
 
-### Orders (`/api/orders`)
+### Orders (`/orders`)
 
 | Method | Endpoint | Description | Request Body | Response |
 |---|---|---|---|---|
@@ -36,9 +37,11 @@ Represents a clothing item available in the store.
 | `name` | `String` | Name of the product |
 | `description` | `String` | Product description |
 | `price` | `BigDecimal` | Price of the product |
-| `category` | `String` | Category (e.g., Outerwear, Pants) |
+| `category` | `String` | Specific category (e.g., Shirt, Pants, Shorts) |
+| `type` | `String` | General type (e.g., Men, Women, Others) |
 | `stockQuantity` | `Integer` | Available stock count |
 | `size` | `String` | Size (e.g., S, M, L) |
+| `imageUrl` | `String` | URL of the product image |
 
 ### CartItem
 Represents an item added to the user's shopping cart.
